@@ -11,7 +11,8 @@ export class VouncherServiceAdapter implements VouncherServiceRepository {
   constructor(private readonly httpService: HttpService) {}
 
   async useVouncher(vouncherId: string): Promise<Vouncher> {
-    const url = `http://localhost:3000/vouncher/${vouncherId}`; //TODO: pass by .env
+    const baseUrl = process.env.VOUCHER_SERVICE_URL;
+    const url = `${baseUrl}/voucher/${vouncherId}/use`;
     const { data } = await firstValueFrom(
       this.httpService.patch<Vouncher>(url).pipe(
         catchError((error: AxiosError) => {

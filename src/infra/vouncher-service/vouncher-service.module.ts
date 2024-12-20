@@ -16,6 +16,6 @@ import { HttpModule } from '@nestjs/axios';
       useClass: VouncherServiceAdapter,
     },
   ],
-  exports: [VouncherServiceAdapter],
+  exports: [HttpModule, VouncherServiceRepository],
 })
 export class VouncherServiceModule {}

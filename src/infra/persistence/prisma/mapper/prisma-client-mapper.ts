@@ -7,6 +7,7 @@ export class PrismaClientMapper {
       id: entity.id,
       name: entity.name,
       email: entity.email,
+      vouncher: entity.vouncher,
     });
     return model;
   }

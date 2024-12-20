@@ -15,10 +15,14 @@ export class BindVouncherUseCase {
   ) {}
 
   async execute({ id, vouncherId }: BindVouncherUseCaseCommand) {
-    const client = this.clientRepository.getById(id);
+    const client = await this.clientRepository.getById(id);
     if (!client) throw new NotFoundException('Client not found');
     //TODO: validate if given vouncherId exists
     await this.vouncherService.useVouncher(vouncherId);
-    return this.clientRepository.bindVouncher(id, vouncherId);
+    const clientBinded = await this.clientRepository.bindVouncher(
+      id,
+      vouncherId,
+    );
+    return clientBinded;
   }
 }
