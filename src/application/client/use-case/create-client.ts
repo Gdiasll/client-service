@@ -1,6 +1,6 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, ConflictException } from '@nestjs/common';
 import { ClientRepository } from '../client.repository';
-import { Client } from 'src/domain/client';
+import { Client } from '../../../domain/client';
 
 interface CreateClientUseCaseCommand {
   name: string;
@@ -16,7 +16,14 @@ export class CreateClientUseCase {
       name,
       email,
     });
-    const response = await this.clientRepository.create(client);
-    return response;
+    try {
+      const response = await this.clientRepository.create(client);
+      return response;
+    } catch (error) {
+      if (error.code === 'P2002' && error.meta?.target.includes('email')) {
+        throw new ConflictException('Email already exists');
+      }
+      throw error;
+    }
   }
 }

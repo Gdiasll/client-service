@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { ClientRepository } from '../client.repository';
-import { Client } from 'src/domain/client';
+import { Client } from '../../../domain/client';
 
 interface UpdateClientUseCaseCommand {
   id: number;

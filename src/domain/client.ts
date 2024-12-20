@@ -1,4 +1,4 @@
-import { Entity } from 'src/core/entity';
+import { Entity } from '../core/entity';
 
 export interface ClientProps {
   name: string;
@@ -22,5 +22,9 @@ export class Client extends Entity<ClientProps> {
 
   get email(): string {
     return this.props.email;
+  }
+
+  set id(value: number) {
+    this.props.id = value;
   }
 }
